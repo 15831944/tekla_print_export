@@ -37,8 +37,9 @@ namespace tekla_print_export
             InitializeComponent();
             _form = this;
 
+            txt_console.Clear();
             lbl_kill_status.Content = UserControls.Running.ToString();
-            consoleOutput("[Program started]");
+            consoleOutput("[Program started]", "L0");
             _settings = new UserSettings(fileName);
         }
         
@@ -47,7 +48,7 @@ namespace tekla_print_export
             if (_thread == null || _thread.ThreadState == ThreadState.Stopped)
             {
                 UserControls.setControls( (bool)cb_prop.IsChecked, (bool)cb_cloud.IsChecked, (bool)cb_pdf.IsChecked, (bool)cb_dwg.IsChecked, (bool)cb_list.IsChecked);
-                consoleOutput("\n[Start] " + DateTime.Now.ToString("h:mm:ss"));
+                consoleOutput("\n[Start] " + DateTime.Now.ToString("h:mm:ss"), "L0");
 
                 try
                 {
@@ -55,74 +56,52 @@ namespace tekla_print_export
                 }
                 catch
                 {
-                    consoleOutput("[ERROR 1]");
+                    consoleOutput("[ERROR] - 1", "L1");
                 }
             }
             else
             {
-                consoleOutput("[PROGRAM IS ALOREADY RUNNING]");
+                consoleOutput("[PROGRAM IS ALOREADY RUNNING]", "L0");
             }
         }
 
         private void main()
         {
-            consoleOutput("Getting objects...");
-            List<TSD.Drawing> objects = TeklaObjectGetter.getAllDrawings();
+            consoleOutput("Getting objects...", "L0");
+            List<TSD.Drawing> objects = TeklaObjectGetter.getSelectedDrawings();
 
-            consoleOutput("Working...");
+            consoleOutput("Working...", "L0");
             MainLoop program = new MainLoop(objects);
             _thread = new Thread( program.main );
             _thread.Start();
         }
 
-        delegate void ParametrizedMethodInvoker(string arg);
-        internal void consoleOutput(string txt)
+        delegate void ParametrizedMethodInvoker(string arg, string arg2);
+        internal void consoleOutput(string txt, string level)
         {
             if (!Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(new ParametrizedMethodInvoker(consoleOutput), txt);
+                Dispatcher.Invoke(new ParametrizedMethodInvoker(consoleOutput), txt, level);
                 return;
             }
 
-            txt_console.AppendText(txt);
-            txt_console.AppendText("\n");
-
-            Rect rect = txt_console.GetRectFromCharacterIndex(txt_console.CaretIndex);
-            txt_console.ScrollToHorizontalOffset(Math.Max((txt_console.HorizontalOffset + rect.Left - (txt_console.ActualWidth - 40)), 0.0));
-        }
-
-        internal void consoleOutputL1(string txt)
-        {
-            if (!Dispatcher.CheckAccess())
+            if (level == "L0")
             {
-                Dispatcher.Invoke(new ParametrizedMethodInvoker(consoleOutputL1), txt);
-                return;
+                txt_console.AppendText(txt);
+
             }
-
-            txt_console.AppendText("-      " + txt);
-            txt_console.AppendText("\n");
-
-            Rect rect = txt_console.GetRectFromCharacterIndex(txt_console.CaretIndex);
-            txt_console.ScrollToHorizontalOffset(Math.Max((txt_console.HorizontalOffset + rect.Left - (txt_console.ActualWidth - 40)), 0.0));
-        }
-
-        internal void consoleOutputL2(string txt)
-        {
-            if (!Dispatcher.CheckAccess())
+            else if (level == "L1")
             {
-                Dispatcher.Invoke(new ParametrizedMethodInvoker(consoleOutputL2), txt);
-                return;
+                txt_console.AppendText("-      " + txt);
+            }
+            else if (level == "L2")
+            {
+                txt_console.AppendText("      -      " + txt);
             }
 
-            txt_console.AppendText("      -      " + txt);
             txt_console.AppendText("\n");
-
-            Rect rect = txt_console.GetRectFromCharacterIndex(txt_console.CaretIndex);
-            txt_console.ScrollToHorizontalOffset(Math.Max((txt_console.HorizontalOffset + rect.Left - (txt_console.ActualWidth - 40)), 0.0));
+            txt_console.ScrollToEnd();
         }
-
-
-        
 
         private void btn_kill_Click(object sender, RoutedEventArgs e)
         {

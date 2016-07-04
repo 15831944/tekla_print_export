@@ -56,7 +56,7 @@ namespace tekla_print_export
             }
             catch
             {
-                MainWindow._form.consoleOutput("[Failed to remove existing CSV]");
+                MainWindow._form.consoleOutput("[Failed to remove existing CSV]", "L0");
             }
 
             try
@@ -66,7 +66,7 @@ namespace tekla_print_export
             }
             catch
             {
-                MainWindow._form.consoleOutput("[CSV write failed]");
+                MainWindow._form.consoleOutput("[CSV write failed]", "L0");
             }
         }
     }

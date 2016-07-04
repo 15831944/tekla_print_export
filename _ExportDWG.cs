@@ -65,7 +65,7 @@ namespace tekla_print_export
                 }
             }
 
-            MainWindow._form.consoleOutputL2("Scale: " + highestScale.ToString());
+            MainWindow._form.consoleOutput("EXPORT - Scale: " + highestScale.ToString(), "L2");
 
             return highestScale;
         }

@@ -48,7 +48,7 @@ namespace tekla_print_export
             else if ((width % 1189 == 0) && height == 841)
                 paper = "PDF_A0";
 
-            MainWindow._form.consoleOutputL2("Height: " + height.ToString() + " Width: " + width.ToString() + " Paper: " + paper);
+            MainWindow._form.consoleOutput("PRINT - " + paper + " ("+ width.ToString() + "x" + height.ToString() + ")", "L2");
             return paper;
         }
     }

@@ -31,9 +31,9 @@ namespace tekla_print_export
 
             foreach (TSD.Drawing current in _collection)
             {
-                if (!UserControls.Running) { MainWindow._form.consoleOutput("[KILLED]"); break; }
+                if (!UserControls.Running) { MainWindow._form.consoleOutput("[KILLED]", "L0"); break; }
 
-                MainWindow._form.consoleOutputL1("Working on " + i.ToString() + " out of " + tot.ToString());
+                MainWindow._form.consoleOutput("Working on " + i.ToString() + " out of " + tot.ToString(), "L1");
 
                 try
                 {
@@ -42,14 +42,14 @@ namespace tekla_print_export
                 }
                 catch
                 {
-                    MainWindow._form.consoleOutput("[ERROR - 2]");
+                    MainWindow._form.consoleOutput("[ERROR] - 2", "L2");
                 }
 
                 i++;
             }
 
-            MainWindow._form.consoleOutput(_stats.results());
-            MainWindow._form.consoleOutput("[Done] " + DateTime.Now.ToString("h:mm:ss"));
+            MainWindow._form.consoleOutput(_stats.results(), "L0");
+            MainWindow._form.consoleOutput("[Done] " + DateTime.Now.ToString("h:mm:ss"), "L0");
         }
     }
 }

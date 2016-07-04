@@ -8,14 +8,14 @@
         Title="Print / Export" Height="876.763" Width="430.533" Topmost="True">
     <Grid>
         <Button x:Name="btn_do" Content="START" Margin="10,50,10,0" VerticalAlignment="Top" Click="btn_do_Click"/>
-        <TextBox x:Name="txt_console" Margin="10,75,10,35" TextWrapping="Wrap" Text="&lt;txt_console&gt;" Focusable="False" AllowDrop="False" VerticalScrollBarVisibility="Visible"/>
+        <TextBox x:Name="txt_console" Margin="10,75,10,35" TextWrapping="Wrap" Text="&lt;txt_console&gt;" Focusable="False" AllowDrop="False" VerticalScrollBarVisibility="Visible" />
         <Button x:Name="btn_kill" Content="KILL" Margin="10,0,82,10" Click="btn_kill_Click" Height="20" VerticalAlignment="Bottom"/>
         <Label x:Name="lbl_kill_status" Content="status" Margin="0,0,10,7" HorizontalAlignment="Right" Width="67" Height="26" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"/>
         <CheckBox x:Name="cb_pdf" Content="Print" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_dwg" Content="Export" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_cloud" Content="RemoveClouds" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_prop" Content="CheckPropertys" HorizontalAlignment="Left" Margin="100,30,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="cb_list" Content="ListCSV" HorizontalAlignment="Left" Margin="250,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox x:Name="cb_list" Content="ListCSV" HorizontalAlignment="Left" Margin="250,10,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_openSettingsFile" Content="S" Margin="0,25,66,0" VerticalAlignment="Top" Click="btn_openSettingsFile_Click" HorizontalAlignment="Right" Width="20"/>
         <Button x:Name="btn_reloadSettingsFile" Content="R" Margin="0,25,41,0" VerticalAlignment="Top" Click="btn_reloadSettingsFile_Click" HorizontalAlignment="Right" Width="20"/>
         <Button x:Name="btn_deleteSettingsFile" Content="D" Margin="0,25,16,0" VerticalAlignment="Top" Click="btn_deleteSettingsFile_Click" HorizontalAlignment="Right" Width="20" />

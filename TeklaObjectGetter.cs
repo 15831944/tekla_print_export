@@ -13,12 +13,12 @@ namespace tekla_print_export
 {
     class TeklaObjectGetter
     {
-        public static List<TSD.Drawing> getAllDrawings()
+        public static List<TSD.Drawing> getSelectedDrawings()
         {
             List<TSD.Drawing> parsed = new List<TSD.Drawing>();
 
             TSD.DrawingHandler myDrawingHandler = new TSD.DrawingHandler();
-            TSD.DrawingEnumerator selectionEnum = myDrawingHandler.GetDrawings();
+            TSD.DrawingEnumerator selectionEnum = myDrawingHandler.GetDrawingSelector().GetSelected();
 
             foreach (TSD.Drawing current in selectionEnum)
             {

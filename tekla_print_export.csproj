@@ -71,7 +71,7 @@
     <Compile Include="_ExportDWG.cs" />
     <Compile Include="_ExportPDF.cs" />
     <Compile Include="MacroBuilder.cs" />
-    <Compile Include="PrintExport.cs" />
+    <Compile Include="__PrintExport.cs" />
     <Compile Include="TeklaObjectGetter.cs" />
     <Compile Include="MainLoop.cs" />
     <Compile Include="UserControls.cs" />
