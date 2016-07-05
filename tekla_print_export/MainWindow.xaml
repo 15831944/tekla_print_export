@@ -15,7 +15,7 @@
         <CheckBox x:Name="cb_pdf" Content="Print" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_dwg" Content="Export" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_cloud" Content="RemoveClouds" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="cb_prop" Content="CheckPropertys" HorizontalAlignment="Left" Margin="80,30,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox x:Name="cb_prop" Content="CheckProperties" HorizontalAlignment="Left" Margin="80,30,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_list" Content="ListCSV" HorizontalAlignment="Left" Margin="200,10,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_clearConsole" Content="C" Margin="0,25,85,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="20" Click="btn_clearConsole_Click"/>
         <Button x:Name="btn_openSettingsFile" Content="S" Margin="0,25,60,0" VerticalAlignment="Top" Click="btn_openSettingsFile_Click" HorizontalAlignment="Right" Width="20"/>

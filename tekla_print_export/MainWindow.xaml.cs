@@ -45,14 +45,14 @@ namespace tekla_print_export
         
         private void btn_do_Click(object sender, RoutedEventArgs e)
         {
-            checkThread();
+            checkThread(startProgram);
         }
 
-        private void checkThread()
+        private void checkThread(Action action)
         {
             if (_thread == null || _thread.ThreadState == ThreadState.Stopped)
             {
-                startProgram();
+                action();
             }
             else
             {
@@ -120,17 +120,17 @@ namespace tekla_print_export
 
         private void btn_openSettingsFile_Click(object sender, RoutedEventArgs e)
         {
-            _settings.openSettingsFile();
+            checkThread(_settings.openSettingsFile);
         }
 
         private void btn_reloadSettingsFile_Click(object sender, RoutedEventArgs e)
         {
-            _settings.resetSettings();
+            checkThread(_settings.resetSettings);
         }
 
         private void btn_deleteSettingsFile_Click(object sender, RoutedEventArgs e)
         {
-            _settings.deleteSettingsFile();
+            checkThread(_settings.deleteSettingsFile);
         }
 
         private void btn_clearConsole_Click(object sender, RoutedEventArgs e)
