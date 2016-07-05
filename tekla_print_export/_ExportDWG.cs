@@ -23,31 +23,31 @@ namespace tekla_print_export
                 throw new DivideByZeroException();
             }
 
-            //new TeklaMacroBuilder.MacroBuilder()
-            //    .Callback("acmdDisplayExportDrawingsDialog", "", "main_frame")
+            new TeklaMacroBuilder.MacroBuilder()
+                .Callback("acmdDisplayExportDrawingsDialog", "", "main_frame")
 
-            //    .ValueChange("diaExportDrawings", "textFileName", UserSettings.textFileName) //Name
-            //    .ValueChange("diaExportDrawings", "optMnuFileType", UserSettings.optMnuFileType) //Type DWG
-            //    .ValueChange("diaExportDrawings", "chkButRevisionMark", UserSettings.chkButRevisionMark) //Include Revision Mark
+                .ValueChange("diaExportDrawings", "textFileName", UserSettings_DWG.textFileName) //Name
+                .ValueChange("diaExportDrawings", "optMnuFileType", UserSettings_DWG.optMnuFileType) //Type DWG
+                .ValueChange("diaExportDrawings", "chkButRevisionMark", UserSettings_DWG.chkButRevisionMark) //Include Revision Mark
 
-            //    //.TabChange("diaExportDrawings", "tabWndProperties", "tabLayerOptions")
-            //    .ValueChange("diaExportDrawings", "optMnuLayerFile", UserSettings.optMnuLayerFile)  //Layer rules
-            //    .ValueChange("diaExportDrawings", "chkUseAdvancedLineTypeConversio", UserSettings.chkUseAdvancedLineTypeConversio) //Use advanced line type and layer conversion
-            //    .ValueChange("diaExportDrawings", "txtLineTypeMappingFile", UserSettings.txtLineTypeMappingFile) //Conversion type
-            //    .ValueChange("diaExportDrawings", "chkButIncludeEmptyLayers", UserSettings.chkButIncludeEmptyLayers) //Include empty layer
-            //    .ValueChange("diaExportDrawings", "chkButObjectColorByLayer", UserSettings.chkButObjectColorByLayer) //Object color by layer
+                //.TabChange("diaExportDrawings", "tabWndProperties", "tabLayerOptions")
+                .ValueChange("diaExportDrawings", "optMnuLayerFile", UserSettings_DWG.optMnuLayerFile)  //Layer rules
+                .ValueChange("diaExportDrawings", "chkUseAdvancedLineTypeConversio", UserSettings_DWG.chkUseAdvancedLineTypeConversio) //Use advanced line type and layer conversion
+                .ValueChange("diaExportDrawings", "txtLineTypeMappingFile", UserSettings_DWG.txtLineTypeMappingFile) //Conversion type
+                .ValueChange("diaExportDrawings", "chkButIncludeEmptyLayers", UserSettings_DWG.chkButIncludeEmptyLayers) //Include empty layer
+                .ValueChange("diaExportDrawings", "chkButObjectColorByLayer", UserSettings_DWG.chkButObjectColorByLayer) //Object color by layer
 
-            //    //.TabChange("diaExportDrawings", "tabWndProperties", "tabOptions")
-            //    .ValueChange("diaExportDrawings", "textScaleFactor", scaleFactor.ToString()) //Drawing scale
-            //    .ValueChange("diaExportDrawings", "txtLineTypeScale", lineTypeScale.ToString()) //Line type scale
-            //    .ValueChange("diaExportDrawings", "chkUseGrouping", UserSettings.chkUseGrouping) //Export objects as groups
-            //    .ValueChange("diaExportDrawings", "chkUseLineCliping", UserSettings.chkUseLineCliping) //Cut lines with text
-            //    .ValueChange("diaExportDrawings", "chkSplitSoftLines", UserSettings.chkSplitSoftLines) //Export custom lines as split lines
-            //    .ValueChange("diaExportDrawings", "chkUsePaperSpace", UserSettings.chkUsePaperSpace) //Use paper space
+                //.TabChange("diaExportDrawings", "tabWndProperties", "tabOptions")
+                .ValueChange("diaExportDrawings", "textScaleFactor", scaleFactor.ToString()) //Drawing scale
+                .ValueChange("diaExportDrawings", "txtLineTypeScale", lineTypeScale.ToString()) //Line type scale
+                .ValueChange("diaExportDrawings", "chkUseGrouping", UserSettings_DWG.chkUseGrouping) //Export objects as groups
+                .ValueChange("diaExportDrawings", "chkUseLineCliping", UserSettings_DWG.chkUseLineCliping) //Cut lines with text
+                .ValueChange("diaExportDrawings", "chkSplitSoftLines", UserSettings_DWG.chkSplitSoftLines) //Export custom lines as split lines
+                .ValueChange("diaExportDrawings", "chkUsePaperSpace", UserSettings_DWG.chkUsePaperSpace) //Use paper space
 
-            //    .PushButton("butExport", "diaExportDrawings")
-            //    .PushButton("butCancel", "diaExportDrawings")
-            //    .Run();
+                .PushButton("butExport", "diaExportDrawings")
+                .PushButton("butCancel", "diaExportDrawings")
+                .Run();
         }
 
         public static double getHighestScale(TSD.Drawing currentDrawing)

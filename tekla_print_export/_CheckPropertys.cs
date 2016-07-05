@@ -17,7 +17,7 @@ namespace tekla_print_export
         {
             bool UDAstatus = true;
 
-            foreach (string prop in UserSettings._drawingProperties)
+            foreach (string prop in UserSettings_UDA._drawingProperties)
             {
                 string temp = "dummy";
                 drawing.GetUserProperty(prop, ref temp);
@@ -29,7 +29,7 @@ namespace tekla_print_export
                 }
             }
 
-            foreach (string prop in UserSettings._drawingPropertiesInt)
+            foreach (string prop in UserSettings_UDA._drawingPropertiesInt)
             {
                 int temp = 0;
                 drawing.GetUserProperty(prop, ref temp);
@@ -49,7 +49,7 @@ namespace tekla_print_export
                 TSM.Assembly currentAssembly = currentModelObject as TSM.Assembly;
                 TSM.Part currentMainPart = currentAssembly.GetMainPart() as TSM.Part;
 
-                foreach (string prop in UserSettings._partProperties)
+                foreach (string prop in UserSettings_UDA._partProperties)
                 {
                     string temp = "dummy";
                     currentMainPart.GetUserProperty(prop, ref temp);

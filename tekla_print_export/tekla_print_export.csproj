@@ -67,6 +67,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PaperSize.cs" />
+    <Compile Include="UserSettings_DWG.cs" />
+    <Compile Include="UserSettings_PDF.cs" />
+    <Compile Include="UserSettings_UDA.cs" />
+    <Compile Include="__CheckReport.cs" />
     <Compile Include="_CreateList.cs" />
     <Compile Include="_ExportDWG.cs" />
     <Compile Include="_ExportPDF.cs" />

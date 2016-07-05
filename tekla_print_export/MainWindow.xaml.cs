@@ -45,23 +45,33 @@ namespace tekla_print_export
         
         private void btn_do_Click(object sender, RoutedEventArgs e)
         {
+            checkThread();
+        }
+
+        private void checkThread()
+        {
             if (_thread == null || _thread.ThreadState == ThreadState.Stopped)
             {
-                UserControls.setControls( (bool)cb_prop.IsChecked, (bool)cb_cloud.IsChecked, (bool)cb_pdf.IsChecked, (bool)cb_dwg.IsChecked, (bool)cb_list.IsChecked);
-                consoleOutput("\n[Start] " + DateTime.Now.ToString("h:mm:ss"), "L0");
-
-                try
-                {
-                    main();
-                }
-                catch
-                {
-                    consoleOutput("[ERROR] - 1", "L1");
-                }
+                startProgram();
             }
             else
             {
-                consoleOutput("[PROGRAM IS ALOREADY RUNNING]", "L0");
+                consoleOutput("[PROGRAM IS RUNNING]", "L0");
+            }
+        }
+
+        private void startProgram()
+        {
+            UserControls.setControls((bool)cb_prop.IsChecked, (bool)cb_cloud.IsChecked, (bool)cb_pdf.IsChecked, (bool)cb_dwg.IsChecked, (bool)cb_list.IsChecked);
+            consoleOutput("\n[Start] " + DateTime.Now.ToString("h:mm:ss"), "L0");
+
+            try
+            {
+                main();
+            }
+            catch
+            {
+                consoleOutput("[ERROR] - 1", "L0");
             }
         }
 
@@ -88,7 +98,6 @@ namespace tekla_print_export
             if (level == "L0")
             {
                 txt_console.AppendText(txt);
-
             }
             else if (level == "L1")
             {
@@ -116,12 +125,17 @@ namespace tekla_print_export
 
         private void btn_reloadSettingsFile_Click(object sender, RoutedEventArgs e)
         {
-            _settings = new UserSettings(fileName);
+            _settings.resetSettings();
         }
 
         private void btn_deleteSettingsFile_Click(object sender, RoutedEventArgs e)
         {
             _settings.deleteSettingsFile();
+        }
+
+        private void btn_clearConsole_Click(object sender, RoutedEventArgs e)
+        {
+            txt_console.Clear();
         }
     }
 }

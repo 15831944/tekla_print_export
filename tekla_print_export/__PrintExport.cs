@@ -15,52 +15,46 @@ namespace tekla_print_export
     {
         public static void main(TSD.Drawing drawing)
         {
+            TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
+            drawingHandler.SetActiveDrawing(drawing, true);
+
             bool printingStatus = true;
-            bool openDrawing = true;
 
-            if (UserControls._list)                                         CreateList.main(drawing);
-            if (UserControls._prop)                                         printingStatus = CheckPropertys.main(drawing);
-            if (UserControls._dwg == false && UserControls._pdf == false)   openDrawing = false;
-
-            if (printingStatus == false)
+            if (UserControls._clouds)
             {
-                MainWindow._form.consoleOutput("[ERROR] UDA(s) not set, printing canceled!", "L2");
-                throw new DivideByZeroException();
+                RemoveClouds.main();
             }
 
-            if (openDrawing)
+            if (UserControls._pdf)
             {
-                TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
-                drawingHandler.SetActiveDrawing(drawing, true);
-
-                if (UserControls._clouds) RemoveClouds.main();
-
                 try
                 {
-                    if (UserControls._pdf) ExportPDF.main(drawing);
+                    ExportPDF.main(drawing);
                 }
                 catch
                 {
+                    printingStatus = false;
                     MainWindow._form.consoleOutput("[ERROR] Failed printing!", "L2");
-                    printingStatus = false;
                 }
+            }
 
+            if (UserControls._dwg)
+            {
                 try
                 {
-                    if (UserControls._dwg) ExportDWG.main(drawing);
+                    ExportDWG.main(drawing);
                 }
                 catch
                 {
-                    MainWindow._form.consoleOutput("[ERROR] Failed exporting!", "L2");
                     printingStatus = false;
+                    MainWindow._form.consoleOutput("[ERROR] Failed exporting!", "L2");
                 }
-
-                drawingHandler.CloseActiveDrawing(UserSettings._drawingSave);
             }
+
+            drawingHandler.CloseActiveDrawing(UserSettings._drawingSave);
 
             if (printingStatus == false)
             {
-
                 throw new DivideByZeroException();
             }
 
