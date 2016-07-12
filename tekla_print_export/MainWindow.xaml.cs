@@ -26,7 +26,6 @@ namespace tekla_print_export
     /// </summary>
     public partial class MainWindow : Window
     {
-        private delegate void Callback();
         public static MainWindow _form;
         UserSettings _settings;
         Thread _thread;
