@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Debuger.cs" />
     <Compile Include="PaperSize.cs" />
     <Compile Include="UserSettings_DWG.cs" />
     <Compile Include="UserSettings_PDF.cs" />

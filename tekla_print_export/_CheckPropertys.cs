@@ -60,6 +60,82 @@ namespace tekla_print_export
                         UDAstatus = false;
                     }
                 }
+
+                foreach (string prop in UserSettings_UDA._partPropertiesInt)
+                {
+                    int temp = 0;
+                    currentMainPart.GetUserProperty(prop, ref temp);
+
+                    if (temp == 0)
+                    {
+                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
+                        UDAstatus = false;
+                    }
+                }
+                
+            }
+            else if (drawing is TSD.AssemblyDrawing)
+            {
+                TSM.Model _myModel = new TSM.Model();
+                TSD.AssemblyDrawing asd = drawing as TSD.AssemblyDrawing;
+                var currentModelObject = _myModel.SelectModelObject(asd.AssemblyIdentifier);
+                TSM.Assembly currentAssembly = currentModelObject as TSM.Assembly;
+                TSM.Part currentMainPart = currentAssembly.GetMainPart() as TSM.Part;
+
+                foreach (string prop in UserSettings_UDA._partProperties)
+                {
+                    string temp = "dummy";
+                    currentMainPart.GetUserProperty(prop, ref temp);
+
+                    if (temp == "dummy")
+                    {
+                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
+                        UDAstatus = false;
+                    }
+                }
+
+                foreach (string prop in UserSettings_UDA._partPropertiesInt)
+                {
+                    int temp = 0;
+                    currentMainPart.GetUserProperty(prop, ref temp);
+
+                    if (temp == 0)
+                    {
+                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
+                        UDAstatus = false;
+                    }
+                }
+            }
+            else if (drawing is TSD.SinglePartDrawing)
+            {
+                TSM.Model _myModel = new TSM.Model();
+                TSD.SinglePartDrawing sp = drawing as TSD.SinglePartDrawing;
+                var currentModelObject = _myModel.SelectModelObject(sp.PartIdentifier);
+                TSM.Part currentMainPart = currentModelObject as TSM.Part;
+
+                foreach (string prop in UserSettings_UDA._partProperties)
+                {
+                    string temp = "dummy";
+                    currentMainPart.GetUserProperty(prop, ref temp);
+
+                    if (temp == "dummy")
+                    {
+                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
+                        UDAstatus = false;
+                    }
+                }
+
+                foreach (string prop in UserSettings_UDA._partPropertiesInt)
+                {
+                    int temp = 0;
+                    currentMainPart.GetUserProperty(prop, ref temp);
+
+                    if (temp == 0)
+                    {
+                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
+                        UDAstatus = false;
+                    }
+                }
             }
 
             return UDAstatus;
