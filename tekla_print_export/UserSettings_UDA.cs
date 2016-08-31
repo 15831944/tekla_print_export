@@ -72,17 +72,17 @@ namespace tekla_print_export
                 else if (match.Value == "[DRAWING_UDA_NUMBER]")
                 {
                     string prop = setting.Replace("[DRAWING_UDA_NUMBER]", "");
-                    _drawingProperties.Add(prop);
+                    _drawingPropertiesInt.Add(prop);
                 }
                 else if (match.Value == "[MAINPART_UDA_TEXT]")
                 {
                     string prop = setting.Replace("[MAINPART_UDA_TEXT]", "");
-                    _drawingProperties.Add(prop);
+                    _partProperties.Add(prop);
                 }
                 else if (match.Value == "[MAINPART_UDA_NUMBER]")
                 {
                     string prop = setting.Replace("[MAINPART_UDA_NUMBER]", "");
-                    _drawingProperties.Add(prop);
+                    _partPropertiesInt.Add(prop);
                 }
             }
         }
