@@ -9,50 +9,90 @@ namespace tekla_print_export
 {
     class UserSettings_UDA
     {
-        public static List<string> _drawingProperties;
-        public static List<string> _drawingPropertiesInt;
-        public static List<string> _partProperties;
-        public static List<string> _partPropertiesInt;
+        public static List<string> _GA_drawingProperties;
+
+        public static List<string> _CU_drawingProperties;
+        public static List<string> _CU_partProperties;
+
+        public static List<string> _A_drawingProperties;
+        public static List<string> _A_partProperties;
+
+        public static List<string> _SP_drawingProperties;
+        public static List<string> _SP_partProperties;
 
         public UserSettings_UDA()
         {
-            _drawingProperties = new List<string>();
-            _drawingPropertiesInt = new List<string>();
-            _partProperties = new List<string>();
-            _partPropertiesInt = new List<string>();
+            _GA_drawingProperties = new List<string>();
+
+            _CU_drawingProperties = new List<string>();
+            _CU_partProperties = new List<string>();
+
+            _A_drawingProperties = new List<string>();
+            _A_partProperties = new List<string>();
+
+            _SP_drawingProperties = new List<string>();
+            _SP_partProperties = new List<string>();
         }
 
         internal void loadDefaults()
         {
-            _drawingProperties = new List<string>();
-            _drawingPropertiesInt = new List<string>();
-            _partProperties = new List<string>();
-            _partPropertiesInt = new List<string>();
+            _GA_drawingProperties = new List<string>();
 
-            _partProperties.Add("DMT_EXPLOSURE");
-            _partProperties.Add("DMT_SURFACE_MODEL");
-            _drawingPropertiesInt.Add("DR_RESP_DSGNR_DATE");
+            _CU_drawingProperties = new List<string>();
+            _CU_partProperties = new List<string>();
+
+            _A_drawingProperties = new List<string>();
+            _A_partProperties = new List<string>();
+
+            _SP_drawingProperties = new List<string>();
+            _SP_partProperties = new List<string>();
+
+            _CU_partProperties.Add("DMT_EXPLOSURE");
+            _CU_partProperties.Add("DMT_SURFACE_MODEL");
+
+            _GA_drawingProperties.Add("DR_RESP_DSGNR_DATE");
+            _CU_drawingProperties.Add("DR_RESP_DSGNR_DATE");
+            _A_drawingProperties.Add("DR_RESP_DSGNR_DATE");
+            _SP_drawingProperties.Add("DR_RESP_DSGNR_DATE");
         }
 
         internal string getProperties()
         {
             StringBuilder txt = new StringBuilder();
 
-            foreach (string prop in UserSettings_UDA._drawingProperties)
+            foreach (string prop in UserSettings_UDA._GA_drawingProperties)
             {
-                txt.AppendLine("[DRAWING_UDA_TEXT] " + prop);
+                txt.AppendLine("[GA_DRAWING] " + prop);
             }
-            foreach (string prop in UserSettings_UDA._drawingPropertiesInt)
+
+            foreach (string prop in UserSettings_UDA._CU_drawingProperties)
             {
-                txt.AppendLine("[DRAWING_UDA_NUMBER] " + prop);
+                txt.AppendLine("[CU_DRAWING] " + prop);
             }
-            foreach (string prop in UserSettings_UDA._partProperties)
+
+            foreach (string prop in UserSettings_UDA._CU_partProperties)
             {
-                txt.AppendLine("[MAINPART_UDA_TEXT] " + prop);
+                txt.AppendLine("[CU_MAINPART] " + prop);
             }
-            foreach (string prop in UserSettings_UDA._partPropertiesInt)
+
+            foreach (string prop in UserSettings_UDA._A_drawingProperties)
             {
-                txt.AppendLine("[MAINPART_UDA_NUMBER] " + prop);
+                txt.AppendLine("[A_DRAWING] " + prop);
+            }
+
+            foreach (string prop in UserSettings_UDA._A_partProperties)
+            {
+                txt.AppendLine("[A_MAINPART] " + prop);
+            }
+
+            foreach (string prop in UserSettings_UDA._SP_drawingProperties)
+            {
+                txt.AppendLine("[SP_DRAWING] " + prop);
+            }
+
+            foreach (string prop in UserSettings_UDA._SP_partProperties)
+            {
+                txt.AppendLine("[SP_PART] " + prop);
             }
 
             return txt.ToString();
@@ -64,25 +104,40 @@ namespace tekla_print_export
             Match match = regex.Match(setting);
             if (match.Success)
             {
-                if (match.Value == "[DRAWING_UDA_TEXT]")
+                if (match.Value == "[GA_DRAWING]")
                 {
-                    string prop = setting.Replace("[DRAWING_UDA_TEXT]", "");
-                    _drawingProperties.Add(prop);
+                    string prop = setting.Replace("[GA_DRAWING]", "");
+                    _GA_drawingProperties.Add(prop);
                 }
-                else if (match.Value == "[DRAWING_UDA_NUMBER]")
+                else if (match.Value == "[CU_DRAWING]")
                 {
-                    string prop = setting.Replace("[DRAWING_UDA_NUMBER]", "");
-                    _drawingPropertiesInt.Add(prop);
+                    string prop = setting.Replace("[CU_DRAWING]", "");
+                    _CU_drawingProperties.Add(prop);
                 }
-                else if (match.Value == "[MAINPART_UDA_TEXT]")
+                else if (match.Value == "[CU_MAINPART]")
                 {
-                    string prop = setting.Replace("[MAINPART_UDA_TEXT]", "");
-                    _partProperties.Add(prop);
+                    string prop = setting.Replace("[CU_MAINPART]", "");
+                    _CU_partProperties.Add(prop);
                 }
-                else if (match.Value == "[MAINPART_UDA_NUMBER]")
+                else if (match.Value == "[A_DRAWING]")
                 {
-                    string prop = setting.Replace("[MAINPART_UDA_NUMBER]", "");
-                    _partPropertiesInt.Add(prop);
+                    string prop = setting.Replace("[A_DRAWING]", "");
+                    _A_drawingProperties.Add(prop);
+                }
+                else if (match.Value == "[A_MAINPART]")
+                {
+                    string prop = setting.Replace("[A_MAINPART]", "");
+                    _A_partProperties.Add(prop);
+                }
+                else if (match.Value == "[SP_DRAWING]")
+                {
+                    string prop = setting.Replace("[SP_DRAWING]", "");
+                    _SP_drawingProperties.Add(prop);
+                }
+                else if (match.Value == "[SP_PART]")
+                {
+                    string prop = setting.Replace("[SP_PART]", "");
+                    _SP_partProperties.Add(prop);
                 }
             }
         }

@@ -19,16 +19,17 @@ namespace tekla_print_export
         internal void loadDefaults()
         {
             PaperSize A4 = new PaperSize("PDF_A4", 210, 297);
-            _plotters.Add(A4);
             PaperSize A4b = new PaperSize("PDF_A4", 297, 210);
-            _plotters.Add(A4b);
             PaperSize A3 = new PaperSize("PDF_A3", 420, 297);
-            _plotters.Add(A3);
             PaperSize A2 = new PaperSize("PDF_A2", 594, 420);
-            _plotters.Add(A2);
             PaperSize A1 = new PaperSize("PDF_A1", 841, 594);
-            _plotters.Add(A1);
             PaperSize A0 = new PaperSize("PDF_A0", 1189, 841);
+
+            _plotters.Add(A4);
+            _plotters.Add(A4b);
+            _plotters.Add(A3);
+            _plotters.Add(A2);
+            _plotters.Add(A1);
             _plotters.Add(A0);
         }
 

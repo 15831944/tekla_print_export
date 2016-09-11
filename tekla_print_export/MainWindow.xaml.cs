@@ -61,7 +61,7 @@ namespace tekla_print_export
 
         private void startProgram()
         {
-            UserControls.setControls((bool)cb_prop.IsChecked, (bool)cb_cloud.IsChecked, (bool)cb_pdf.IsChecked, (bool)cb_dwg.IsChecked, (bool)cb_list.IsChecked);
+            UserControls.setControls((bool)cb_prop.IsChecked, (bool)cb_pdf.IsChecked, (bool)cb_dwg.IsChecked, (bool)cb_list.IsChecked);
             consoleOutput("\n[Start] " + DateTime.Now.ToString("h:mm:ss"), "L0");
 
             try

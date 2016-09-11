@@ -15,130 +15,118 @@ namespace tekla_print_export
     {
         public static bool main(TSD.Drawing drawing)
         {
-            bool UDAstatus = true;
+            bool drawingStatus = true;
 
-            foreach (string prop in UserSettings_UDA._drawingProperties)
+            TSM.Model _myModel = new TSM.Model();
+
+            if (drawing is TSD.GADrawing)
             {
-                string temp = "dummy";
-                drawing.GetUserProperty(prop, ref temp);
-
-                if (temp == "dummy")
-                {
-                    MainWindow._form.consoleOutput(drawing.Mark + prop + " is not set", "L2");
-                    UDAstatus = false;
-                }
+                drawingStatus = checkDrawing<TSD.GADrawing>(UserSettings_UDA._GA_drawingProperties, drawing as TSD.GADrawing);
             }
-
-            foreach (string prop in UserSettings_UDA._drawingPropertiesInt)
+            else if (drawing is TSD.CastUnitDrawing)
             {
-                int temp = 0;
-                drawing.GetUserProperty(prop, ref temp);
-
-                if (temp == 0)
-                {
-                    MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
-                    UDAstatus = false;
-                }
-            }
-
-            if (drawing is TSD.CastUnitDrawing)
-            {
-                TSM.Model _myModel = new TSM.Model();
                 TSD.CastUnitDrawing cu = drawing as TSD.CastUnitDrawing;
-                var currentModelObject = _myModel.SelectModelObject(cu.CastUnitIdentifier);
-                TSM.Assembly currentAssembly = currentModelObject as TSM.Assembly;
+                TSM.Assembly currentAssembly = _myModel.SelectModelObject(cu.CastUnitIdentifier) as TSM.Assembly;
                 TSM.Part currentMainPart = currentAssembly.GetMainPart() as TSM.Part;
 
-                foreach (string prop in UserSettings_UDA._partProperties)
-                {
-                    string temp = "dummy";
-                    currentMainPart.GetUserProperty(prop, ref temp);
-
-                    if (temp == "dummy")
-                    {
-                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
-                        UDAstatus = false;
-                    }
-                }
-
-                foreach (string prop in UserSettings_UDA._partPropertiesInt)
-                {
-                    int temp = 0;
-                    currentMainPart.GetUserProperty(prop, ref temp);
-
-                    if (temp == 0)
-                    {
-                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
-                        UDAstatus = false;
-                    }
-                }
-                
+                drawingStatus = checkDrawing<TSD.CastUnitDrawing>(UserSettings_UDA._CU_drawingProperties, cu);
+                if (drawingStatus) drawingStatus = checkPart(UserSettings_UDA._CU_partProperties, currentMainPart, cu);
             }
             else if (drawing is TSD.AssemblyDrawing)
             {
-                TSM.Model _myModel = new TSM.Model();
                 TSD.AssemblyDrawing asd = drawing as TSD.AssemblyDrawing;
-                var currentModelObject = _myModel.SelectModelObject(asd.AssemblyIdentifier);
-                TSM.Assembly currentAssembly = currentModelObject as TSM.Assembly;
+                TSM.Assembly currentAssembly = _myModel.SelectModelObject(asd.AssemblyIdentifier) as TSM.Assembly;
                 TSM.Part currentMainPart = currentAssembly.GetMainPart() as TSM.Part;
 
-                foreach (string prop in UserSettings_UDA._partProperties)
-                {
-                    string temp = "dummy";
-                    currentMainPart.GetUserProperty(prop, ref temp);
-
-                    if (temp == "dummy")
-                    {
-                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
-                        UDAstatus = false;
-                    }
-                }
-
-                foreach (string prop in UserSettings_UDA._partPropertiesInt)
-                {
-                    int temp = 0;
-                    currentMainPart.GetUserProperty(prop, ref temp);
-
-                    if (temp == 0)
-                    {
-                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
-                        UDAstatus = false;
-                    }
-                }
+                drawingStatus = checkDrawing<TSD.AssemblyDrawing>(UserSettings_UDA._A_drawingProperties, asd);
+                if (drawingStatus) drawingStatus = checkPart(UserSettings_UDA._A_partProperties, currentMainPart, asd);
             }
             else if (drawing is TSD.SinglePartDrawing)
             {
-                TSM.Model _myModel = new TSM.Model();
                 TSD.SinglePartDrawing sp = drawing as TSD.SinglePartDrawing;
-                var currentModelObject = _myModel.SelectModelObject(sp.PartIdentifier);
-                TSM.Part currentMainPart = currentModelObject as TSM.Part;
+                TSM.Part currentPart = _myModel.SelectModelObject(sp.PartIdentifier) as TSM.Part;
 
-                foreach (string prop in UserSettings_UDA._partProperties)
-                {
-                    string temp = "dummy";
-                    currentMainPart.GetUserProperty(prop, ref temp);
-
-                    if (temp == "dummy")
-                    {
-                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
-                        UDAstatus = false;
-                    }
-                }
-
-                foreach (string prop in UserSettings_UDA._partPropertiesInt)
-                {
-                    int temp = 0;
-                    currentMainPart.GetUserProperty(prop, ref temp);
-
-                    if (temp == 0)
-                    {
-                        MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
-                        UDAstatus = false;
-                    }
-                }
+                drawingStatus = checkDrawing<TSD.SinglePartDrawing>(UserSettings_UDA._SP_drawingProperties, sp);
+                if (drawingStatus) drawingStatus = checkPart(UserSettings_UDA._SP_partProperties, currentPart, sp);
             }
 
-            return UDAstatus;
+            return drawingStatus;
+        }
+
+        public static bool checkDrawing<T>(List<string> properties, T drawing) where T : TSD.Drawing
+        {
+            foreach (string prop in properties)
+            {
+                bool result = checkProperty(prop, drawing);
+
+                if (result == false) return false;
+            }
+
+            return true;
+        }
+
+        public static bool checkPart(List<string> properties, TSM.Part part, TSD.Drawing drawing)
+        {
+            foreach (string prop in properties)
+            {
+                bool result = checkProperty(prop, part, drawing);
+
+                if (result == false) return false;
+            }
+
+            return true;
+        }
+
+        public static bool checkProperty<T>(string prop, T drawing) where T : TSD.Drawing
+        {
+            string temp = "dummy";
+            drawing.GetUserProperty(prop, ref temp);
+
+            if (temp != "dummy")
+            {
+                return true;
+            }
+
+            int tempInt = -987;
+            drawing.GetUserProperty(prop, ref temp);
+
+            if (tempInt != -987)
+            {
+                return true;
+            }
+
+            if (temp == "dummy" && tempInt == -987)
+            {
+                MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
+            }
+
+            return false;
+        }
+
+        public static bool checkProperty(string prop, TSM.Part part, TSD.Drawing drawing)
+        {
+            string temp = "dummy";
+            part.GetUserProperty(prop, ref temp);
+
+            if (temp != "dummy")
+            {
+                return true;
+            }
+
+            int tempInt = -987;
+            part.GetUserProperty(prop, ref temp);
+
+            if (tempInt != -987)
+            {
+                return true;
+            }
+
+            if (temp == "dummy" && tempInt == -987)
+            {
+                MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
+            }
+
+            return false;
         }
     }
 }

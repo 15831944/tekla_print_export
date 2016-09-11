@@ -12,7 +12,8 @@ namespace tekla_print_export
 {
     class UserSettings
     {
-        public static bool _drawingSave;
+        //public static bool _drawingSave;
+        public static UserSettings_GLOBAL _GLOBAL;
         public static UserSettings_UDA _UDA;
         public static UserSettings_DWG _DWG;
         public static UserSettings_PDF _PDF;
@@ -51,17 +52,18 @@ namespace tekla_print_export
 
         private void loadDefaultSettings()
         {
-            _drawingSave = false;
+            _GLOBAL = new UserSettings_GLOBAL();
             _UDA = new UserSettings_UDA();
-            _UDA.loadDefaults();
             _DWG = new UserSettings_DWG();
             _PDF = new UserSettings_PDF();
+
+            _UDA.loadDefaults();
             _PDF.loadDefaults();
         }
 
         private void printCurrentSettings()
         {
-            MainWindow._form.consoleOutput("[GLOBAL] " + "drawingSave" + " = " + _drawingSave.ToString() + "\n", "L0");
+            MainWindow._form.consoleOutput( _GLOBAL.getProperties(), "L0");
             MainWindow._form.consoleOutput( _UDA.getProperties() , "L0");
             MainWindow._form.consoleOutput( _DWG.getProperties() , "L0");
             MainWindow._form.consoleOutput( _PDF.getProperties() , "L0" );
@@ -69,36 +71,24 @@ namespace tekla_print_export
 
         private void parseSettingsFile(string[] readText)
         {
-            _drawingSave = false;
+            _GLOBAL = new UserSettings_GLOBAL();
             _UDA = new UserSettings_UDA();
             _DWG = new UserSettings_DWG();
             _PDF = new UserSettings_PDF();
 
             foreach (string setting in readText)
             {
-                string parsed = setting.Replace(" ", "");
-                setGlobalProperty(parsed);
-                _UDA.setProperty(parsed);
-                _DWG.setProperty(parsed);
-                _PDF.setProperty(parsed);
-            }
-
-        }
-
-        private void setGlobalProperty(string setting)
-        {
-            Regex regex = new Regex(@"\[(.+)\]");
-            Match match = regex.Match(setting);
-            if (match.Success)
-            {
-                if (match.Value == "[GLOBAL]")
+                if (setting.StartsWith("###"))
                 {
-                    string prop = setting.Replace("[GLOBAL]", "");
-                    string[] props = prop.Split('=');
-                    if (props.Count() == 2)
-                    {
-                        if (props[0] == "drawingSave") _drawingSave = Boolean.Parse(props[1]);
-                    }
+                    continue;
+                }
+                else
+                {
+                    string parsed = setting.Replace(" ", "");
+                    _GLOBAL.setProperty(parsed);
+                    _UDA.setProperty(parsed);
+                    _DWG.setProperty(parsed);
+                    _PDF.setProperty(parsed);
                 }
             }
         }
@@ -106,10 +96,13 @@ namespace tekla_print_export
         internal void writeSettingsFile()
         {
             StringBuilder txt = new StringBuilder();
-
-            txt.AppendLine("[GLOBAL] " + "drawingSave" + " = " + "false");
+            txt.AppendLine("### [GLOBAL]");
+            txt.Append(_GLOBAL.getProperties());
+            txt.AppendLine("### [GA_DRAWING], [CU_DRAWING], [CU_MAINPART], [A_DRAWING], [A_MAINPART], [SP_DRAWING], [SP_PART]");
             txt.Append(_UDA.getProperties());
+            txt.AppendLine("### [DWG]");
             txt.Append(_DWG.getProperties());
+            txt.AppendLine("### [PDF]");
             txt.Append(_PDF.getProperties());
 
             string settings = txt.ToString();
@@ -167,3 +160,4 @@ namespace tekla_print_export
 
     }
 }
+

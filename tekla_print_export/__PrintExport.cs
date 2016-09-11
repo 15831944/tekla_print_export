@@ -20,7 +20,7 @@ namespace tekla_print_export
 
             bool printingStatus = true;
 
-            if (UserControls._clouds)
+            if (UserSettings_GLOBAL._removeClouds)
             {
                 RemoveClouds.main();
             }
@@ -51,7 +51,7 @@ namespace tekla_print_export
                 }
             }
 
-            drawingHandler.CloseActiveDrawing(UserSettings._drawingSave);
+            drawingHandler.CloseActiveDrawing(UserSettings_GLOBAL._drawingSave);
 
             if (printingStatus == false)
             {

@@ -70,6 +70,7 @@
     <Compile Include="Debuger.cs" />
     <Compile Include="PaperSize.cs" />
     <Compile Include="UserSettings_DWG.cs" />
+    <Compile Include="UserSettings_GLOBAL.cs" />
     <Compile Include="UserSettings_PDF.cs" />
     <Compile Include="UserSettings_UDA.cs" />
     <Compile Include="__CheckReport.cs" />

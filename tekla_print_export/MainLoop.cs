@@ -74,7 +74,7 @@ namespace tekla_print_export
             {
                 if (!UserControls.Running) { MainWindow._form.consoleOutput("[KILLED]", "L0"); break; }
 
-                if (UserControls._pdf || UserControls._dwg)
+                if (UserControls._pdf || UserControls._dwg || UserSettings_GLOBAL._removeClouds)
                 {
                     MainWindow._form.consoleOutput("Printing/Exporting " + i.ToString() + " out of " + tot.ToString(), "L1");
 

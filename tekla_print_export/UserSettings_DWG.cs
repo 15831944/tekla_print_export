@@ -93,6 +93,7 @@ namespace tekla_print_export
                         else if (props[0] == "chkUseLineCliping") chkUseLineCliping = props[1];
                         else if (props[0] == "chkSplitSoftLines") chkSplitSoftLines = props[1];
                         else if (props[0] == "chkUsePaperSpace") chkUsePaperSpace = props[1];
+                        else MainWindow._form.consoleOutput("[" + prop[0] + " NOT FOUND]", "L0");
                     }
                 }
             }

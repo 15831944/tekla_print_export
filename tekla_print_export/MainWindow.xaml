@@ -5,21 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tekla_print_export"
         mc:Ignorable="d"
-        Title="Print / Export" Height="700" Width="430
+        Title="Print / Export" Height="770" Width="430
         " Topmost="True">
     <Grid>
-        <Button x:Name="btn_do" Content="START" Margin="10,50,10,0" VerticalAlignment="Top" Click="btn_do_Click"/>
-        <TextBox x:Name="txt_console" Margin="10,75,10,35" TextWrapping="Wrap" Text="&lt;txt_console&gt;" Focusable="False" AllowDrop="False" VerticalScrollBarVisibility="Visible" />
-        <Button x:Name="btn_kill" Content="KILL" Margin="10,0,82,10" Click="btn_kill_Click" Height="20" VerticalAlignment="Bottom"/>
-        <Label x:Name="lbl_kill_status" Content="status" Margin="0,0,10,7" HorizontalAlignment="Right" Width="67" Height="26" VerticalAlignment="Bottom" HorizontalContentAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="114*"/>
+            <ColumnDefinition Width="97*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btn_do" Content="START" Margin="10,50,10,0" VerticalAlignment="Top" Click="btn_do_Click" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txt_console" Margin="10,75,10,35" TextWrapping="Wrap" Text="&lt;txt_console&gt;" Focusable="False" AllowDrop="False" VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2" />
+        <Button x:Name="btn_kill" Content="KILL" Margin="10,0,82,10" Click="btn_kill_Click" Height="20" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl_kill_status" Content="status" Margin="0,0,10,7" HorizontalAlignment="Right" Width="67" Height="26" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Grid.Column="1"/>
         <CheckBox x:Name="cb_pdf" Content="Print" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_dwg" Content="Export" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="cb_cloud" Content="RemoveClouds" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="cb_prop" Content="CheckProperties" HorizontalAlignment="Left" Margin="80,30,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="cb_list" Content="ListCSV" HorizontalAlignment="Left" Margin="200,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn_clearConsole" Content="Clr" Margin="0,25,129,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="25" Click="btn_clearConsole_Click"/>
-        <Button x:Name="btn_openSettingsFile" Content="Edit" Margin="0,25,84,0" VerticalAlignment="Top" Click="btn_openSettingsFile_Click" HorizontalAlignment="Right" Width="40"/>
-        <Button x:Name="btn_reloadSettingsFile" Content="Reload" Margin="0,25,39,0" VerticalAlignment="Top" Click="btn_reloadSettingsFile_Click" HorizontalAlignment="Right" Width="40"/>
-        <Button x:Name="btn_deleteSettingsFile" Content="Del" Margin="0,25,10,0" VerticalAlignment="Top" Click="btn_deleteSettingsFile_Click" HorizontalAlignment="Right" Width="25" />
+        <CheckBox x:Name="cb_list" Content="ListCSV" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_clearConsole" Content="Clear" Margin="0,10,129,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Click="btn_clearConsole_Click" Grid.Column="1"/>
+        <Button x:Name="btn_openSettingsFile" Content="Edit" Margin="0,10,84,0" VerticalAlignment="Top" Click="btn_openSettingsFile_Click" HorizontalAlignment="Right" Width="40" Grid.Column="1"/>
+        <Button x:Name="btn_reloadSettingsFile" Content="Reload" Margin="0,10,39,0" VerticalAlignment="Top" Click="btn_reloadSettingsFile_Click" HorizontalAlignment="Right" Width="40" Grid.Column="1"/>
+        <Button x:Name="btn_deleteSettingsFile" Content="Del" Margin="0,10,10,0" VerticalAlignment="Top" Click="btn_deleteSettingsFile_Click" HorizontalAlignment="Right" Width="25" Grid.Column="1" RenderTransformOrigin="0.52,-1.3" />
     </Grid>
 </Window>
