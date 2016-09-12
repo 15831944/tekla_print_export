@@ -34,7 +34,7 @@ namespace tekla_print_export
                 catch
                 {
                     printingStatus = false;
-                    MainWindow._form.consoleOutput("[ERROR] Failed printing!", "L2");
+                    MainWindow._form.consoleOutput("[ERROR - 4] Failed printing!", "L2");
                 }
             }
 
@@ -47,7 +47,7 @@ namespace tekla_print_export
                 catch
                 {
                     printingStatus = false;
-                    MainWindow._form.consoleOutput("[ERROR] Failed exporting!", "L2");
+                    MainWindow._form.consoleOutput("[ERROR - 5] Failed exporting!", "L2");
                 }
             }
 

@@ -48,7 +48,6 @@ namespace tekla_print_export
             _SP_partProperties = new List<string>();
 
             _CU_partProperties.Add("DMT_EXPLOSURE");
-            _CU_partProperties.Add("DMT_SURFACE_MODEL");
 
             _GA_drawingProperties.Add("DR_RESP_DSGNR_DATE");
             _CU_drawingProperties.Add("DR_RESP_DSGNR_DATE");

@@ -33,11 +33,9 @@ namespace tekla_print_export
             }
             catch
             {
-                MainWindow._form.consoleOutput("[ERROR] - 2", "L1");
+                MainWindow._form.consoleOutput("[ERROR - 2]", "L1");
             }
 
-
-            MainWindow._form.consoleOutput(_stats.results(), "L0");
             MainWindow._form.consoleOutput("[Done] " + DateTime.Now.ToString("h:mm:ss"), "L0");
         }
 
@@ -85,12 +83,14 @@ namespace tekla_print_export
                     }
                     catch
                     {
-                        MainWindow._form.consoleOutput("[ERROR] - 3", "L2");
+                        MainWindow._form.consoleOutput("[ERROR - 3]", "L2");
                     }
                 }
 
                 i++;
             }
+
+            MainWindow._form.consoleOutput(_stats.results(), "L0");
         }
 
 

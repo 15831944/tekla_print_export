@@ -70,7 +70,7 @@ namespace tekla_print_export
             }
             catch
             {
-                consoleOutput("[ERROR] - 1", "L0");
+                consoleOutput("[ERROR - 1]", "L0");
             }
         }
 

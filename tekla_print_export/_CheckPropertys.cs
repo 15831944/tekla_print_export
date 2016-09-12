@@ -21,7 +21,7 @@ namespace tekla_print_export
 
             if (drawing is TSD.GADrawing)
             {
-                drawingStatus = checkDrawing<TSD.GADrawing>(UserSettings_UDA._GA_drawingProperties, drawing as TSD.GADrawing);
+                drawingStatus = checkDrawing(UserSettings_UDA._GA_drawingProperties, drawing as TSD.GADrawing);
             }
             else if (drawing is TSD.CastUnitDrawing)
             {
@@ -29,7 +29,7 @@ namespace tekla_print_export
                 TSM.Assembly currentAssembly = _myModel.SelectModelObject(cu.CastUnitIdentifier) as TSM.Assembly;
                 TSM.Part currentMainPart = currentAssembly.GetMainPart() as TSM.Part;
 
-                drawingStatus = checkDrawing<TSD.CastUnitDrawing>(UserSettings_UDA._CU_drawingProperties, cu);
+                drawingStatus = checkDrawing(UserSettings_UDA._CU_drawingProperties, cu);
                 if (drawingStatus) drawingStatus = checkPart(UserSettings_UDA._CU_partProperties, currentMainPart, cu);
             }
             else if (drawing is TSD.AssemblyDrawing)
@@ -38,7 +38,7 @@ namespace tekla_print_export
                 TSM.Assembly currentAssembly = _myModel.SelectModelObject(asd.AssemblyIdentifier) as TSM.Assembly;
                 TSM.Part currentMainPart = currentAssembly.GetMainPart() as TSM.Part;
 
-                drawingStatus = checkDrawing<TSD.AssemblyDrawing>(UserSettings_UDA._A_drawingProperties, asd);
+                drawingStatus = checkDrawing(UserSettings_UDA._A_drawingProperties, asd);
                 if (drawingStatus) drawingStatus = checkPart(UserSettings_UDA._A_partProperties, currentMainPart, asd);
             }
             else if (drawing is TSD.SinglePartDrawing)
@@ -46,19 +46,18 @@ namespace tekla_print_export
                 TSD.SinglePartDrawing sp = drawing as TSD.SinglePartDrawing;
                 TSM.Part currentPart = _myModel.SelectModelObject(sp.PartIdentifier) as TSM.Part;
 
-                drawingStatus = checkDrawing<TSD.SinglePartDrawing>(UserSettings_UDA._SP_drawingProperties, sp);
+                drawingStatus = checkDrawing(UserSettings_UDA._SP_drawingProperties, sp);
                 if (drawingStatus) drawingStatus = checkPart(UserSettings_UDA._SP_partProperties, currentPart, sp);
             }
 
             return drawingStatus;
         }
 
-        public static bool checkDrawing<T>(List<string> properties, T drawing) where T : TSD.Drawing
+        public static bool checkDrawing(List<string> properties, TSD.Drawing drawing)
         {
             foreach (string prop in properties)
             {
                 bool result = checkProperty(prop, drawing);
-
                 if (result == false) return false;
             }
 
@@ -70,62 +69,60 @@ namespace tekla_print_export
             foreach (string prop in properties)
             {
                 bool result = checkProperty(prop, part, drawing);
-
                 if (result == false) return false;
             }
 
             return true;
         }
 
-        public static bool checkProperty<T>(string prop, T drawing) where T : TSD.Drawing
+        public static bool checkProperty(string prop, TSD.Drawing drawing)
         {
-            string temp = "dummy";
-            drawing.GetUserProperty(prop, ref temp);
+            string dummy = "dummy";
+            drawing.GetUserProperty(prop, ref dummy);
 
-            if (temp != "dummy")
-            {
-                return true;
-            }
+            int dummyInt = -987;
+            drawing.GetUserProperty(prop, ref dummyInt);
 
-            int tempInt = -987;
-            drawing.GetUserProperty(prop, ref temp);
+            bool status = checker(dummy, dummyInt);
 
-            if (tempInt != -987)
-            {
-                return true;
-            }
-
-            if (temp == "dummy" && tempInt == -987)
+            if (status == false)
             {
                 MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
             }
 
-            return false;
+            return status;
         }
 
         public static bool checkProperty(string prop, TSM.Part part, TSD.Drawing drawing)
         {
-            string temp = "dummy";
-            part.GetUserProperty(prop, ref temp);
+            string dummy = "dummy";
+            part.GetUserProperty(prop, ref dummy);
 
-            if (temp != "dummy")
-            {
-                return true;
-            }
+            int dummyInt = -987;
+            part.GetUserProperty(prop, ref dummyInt);
 
-            int tempInt = -987;
-            part.GetUserProperty(prop, ref temp);
-
-            if (tempInt != -987)
-            {
-                return true;
-            }
-
-            if (temp == "dummy" && tempInt == -987)
+            bool status = checker(dummy, dummyInt);
+            
+            if (status == false)
             {
                 MainWindow._form.consoleOutput(drawing.Mark + " " + prop + " is not set", "L2");
             }
 
+            return status;
+        }
+
+        public static bool checker(string dummy, int dummyInt)
+        {
+            if (dummy != "dummy")
+            {
+                return true;
+            }
+
+            if (dummyInt != -987)
+            {
+                return true;
+            }
+            
             return false;
         }
     }

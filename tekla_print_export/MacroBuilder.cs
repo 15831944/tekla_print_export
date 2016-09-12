@@ -271,6 +271,12 @@ namespace TeklaMacroBuilder
 				string Name = GetMacroFileName();
 				string MacrosPath = string.Empty;
 				TeklaStructuresSettings.GetAdvancedOption("XS_MACRO_DIRECTORY", ref MacrosPath);
+                if (MacrosPath.Contains(";"))
+                {
+                    string[] temp = MacrosPath.Split(';');
+                    MacrosPath = temp[0];
+                    MacrosPath = MacrosPath.Replace(" ", "");
+                }
 
 				File.WriteAllText(
 					Path.Combine(MacrosPath, Name),
