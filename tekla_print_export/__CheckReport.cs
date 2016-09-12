@@ -17,12 +17,9 @@ namespace tekla_print_export
         {
             bool localCheckOK = true;
 
-            if (UserControls._list) CreateList.main(drawing);
 
-            if (UserControls._prop)
-            {
-                localCheckOK = CheckPropertys.main(drawing);
-            }
+
+
 
             if (localCheckOK == false)
             {

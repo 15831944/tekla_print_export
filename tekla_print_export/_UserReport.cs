@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Diagnostics;
+using System.Reflection;
 
 using Tekla.Structures;
 using TSM = Tekla.Structures.Model;
@@ -12,8 +14,10 @@ using T3D = Tekla.Structures.Geometry3d;
 
 namespace tekla_print_export
 {
-    class CreateList
+    static class _UserReport
     {
+        public static string _csv = "";
+
         public static void main(TSD.Drawing drawing)
         {
             StringBuilder csv = new StringBuilder();
@@ -45,7 +49,7 @@ namespace tekla_print_export
             string newLine = string.Format("{0};{1};{2};{3};{4};", name, nr, revisionMark, dmtDateString, revisionDateString);
             csv.AppendLine(newLine);
 
-            UserReport.addCSV(csv.ToString()) ;
+            addCSV(csv.ToString());
         }
 
         public static void DateLastMark(TSD.Drawing croquis, out string revisionMark, out int revisionDateSeconds)
@@ -62,6 +66,43 @@ namespace tekla_print_export
 
             revisionDateSeconds = 0;
             fakeBeam.GetReportProperty("REVISION.LAST_DATE_CREATE", ref revisionDateSeconds);
+        }
+
+        public static void newCSV()
+        {
+            _csv = "";
+        }
+
+        public static void addCSV(string txt)
+        {
+            _csv = _csv + txt;
+        }
+
+        public static void makeCSV()
+        {
+            string fileName = "printed.csv";
+
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+            }
+            catch
+            {
+                MainWindow._form.consoleOutput("[Failed to remove existing CSV]", "L0");
+            }
+
+            try
+            {
+                File.AppendAllText(fileName, _csv);
+                Process.Start(fileName);
+            }
+            catch
+            {
+                MainWindow._form.consoleOutput("[CSV write failed]", "L0");
+            }
         }
     }
 }

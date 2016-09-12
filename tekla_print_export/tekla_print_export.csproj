@@ -67,14 +67,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Debuger.cs" />
+    <Compile Include="DB.cs" />
     <Compile Include="PaperSize.cs" />
     <Compile Include="UserSettings_DWG.cs" />
     <Compile Include="UserSettings_GLOBAL.cs" />
     <Compile Include="UserSettings_PDF.cs" />
     <Compile Include="UserSettings_UDA.cs" />
     <Compile Include="__CheckReport.cs" />
-    <Compile Include="_CreateList.cs" />
     <Compile Include="_ExportDWG.cs" />
     <Compile Include="_ExportPDF.cs" />
     <Compile Include="MacroBuilder.cs" />
@@ -82,7 +81,7 @@
     <Compile Include="TeklaObjectGetter.cs" />
     <Compile Include="MainLoop.cs" />
     <Compile Include="UserControls.cs" />
-    <Compile Include="UserReport.cs" />
+    <Compile Include="_UserReport.cs" />
     <Compile Include="UserSettings.cs" />
     <Compile Include="_CheckPropertys.cs" />
     <Compile Include="_RemoveClouds.cs" />

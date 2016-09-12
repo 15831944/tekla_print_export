@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace tekla_print_export
 {
-    static class Debuger
+    static class DB
     {
-        public static void p(string txt)
+        public static void pp(string txt)
         {
-            MainWindow._form.consoleOutput("DEBUG: " + txt, "L2");
+            MainWindow._form.consoleOutput("### DEBUG: " + txt, "L0");
         }
     }
 }
