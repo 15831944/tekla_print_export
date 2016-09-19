@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows;
 
 using Tekla.Structures;
 using Tekla.Structures.Drawing;
@@ -271,21 +272,20 @@ namespace TeklaMacroBuilder
 				string Name = GetMacroFileName();
 				string MacrosPath = string.Empty;
 				TeklaStructuresSettings.GetAdvancedOption("XS_MACRO_DIRECTORY", ref MacrosPath);
-                MacrosPath = MacrosPath.Replace(" ", "");
 
-                //if (MacrosPath.Contains(";"))
-                //{
+                if (MacrosPath.Contains(";"))
+                {
                     string[] temp = MacrosPath.Split(';');
 
                     foreach (string path in temp)
                     {
-                        if (path.Contains("Tekla Structures") && path.Contains(@"Environments\common\macros"))
+                        if (path.Contains(@"Environments\common\macros"))
                         {
                             MacrosPath = path;
                             break;
                         }
                     }
-                //}
+                }
 
 				File.WriteAllText(
 					Path.Combine(MacrosPath, Name),
@@ -315,8 +315,8 @@ namespace TeklaMacroBuilder
 			Model CurrentModel = new Model();
 			DrawingHandler DrawingHandler = new DrawingHandler();
 
-			if (DrawingHandler.GetActiveDrawing() != null)
-				macroName = @"..\drawings\" + macroName;
+			//if (DrawingHandler.GetActiveDrawing() != null)
+			//	macroName = @"..\drawings\" + macroName;
 
 			if (CurrentModel.GetConnectionStatus())
 			{
