@@ -33,7 +33,7 @@ namespace tekla_print_export
         {
             textFileName = ""; //Name
             optMnuFileType = "1"; //Type DWG
-            chkButRevisionMark = "0"; //Include Revision Mark
+            chkButRevisionMark = "1"; //Include Revision Mark
 
             optMnuLayerFile = "standard";  //Layer rules
             chkUseAdvancedLineTypeConversio = "0"; //Use advanced line type and layer conversion
