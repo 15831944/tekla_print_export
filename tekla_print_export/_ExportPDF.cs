@@ -24,6 +24,7 @@ namespace tekla_print_export
 
             new TeklaMacroBuilder.MacroBuilder()
                 .Callback("acmd_display_plot_dialog", "", "main_frame")
+                .ValueChange("Plot", "add_revision_info_to_filename", UserSettings_PDF.add_revision_info_to_filename) //Include Revision Mark
                 .ListSelect("Plot", "component_list", printerName)
                 .PushButton("butPrint", "Plot")
                 .PushButton("cancel_pb", "Plot")

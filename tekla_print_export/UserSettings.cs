@@ -57,8 +57,11 @@ namespace tekla_print_export
             _DWG = new UserSettings_DWG();
             _PDF = new UserSettings_PDF();
 
+            _GLOBAL.loadDefaults();
+            _DWG.loadDefaults();
             _UDA.loadDefaults();
             _PDF.loadDefaults();
+            _PDF.loadDefaultPrinters();
         }
 
         private void printCurrentSettings()
@@ -75,6 +78,10 @@ namespace tekla_print_export
             _UDA = new UserSettings_UDA();
             _DWG = new UserSettings_DWG();
             _PDF = new UserSettings_PDF();
+
+            _GLOBAL.loadDefaults();
+            _DWG.loadDefaults();
+            _PDF.loadDefaults();
 
             foreach (string setting in readText)
             {

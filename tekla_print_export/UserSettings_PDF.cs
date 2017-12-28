@@ -11,12 +11,19 @@ namespace tekla_print_export
     {
         public static List<PaperSize> _plotters;
 
+        public static string add_revision_info_to_filename;
+
         public UserSettings_PDF()
         {
             _plotters = new List<PaperSize>();
         }
 
         internal void loadDefaults()
+        {
+            add_revision_info_to_filename = "1";
+        }
+
+        internal void loadDefaultPrinters()
         {
             PaperSize A4 = new PaperSize("PDF_A4", 210, 297);
             PaperSize A4b = new PaperSize("PDF_A4", 297, 210);
@@ -42,6 +49,8 @@ namespace tekla_print_export
                 txt.AppendLine("[PLOT] " + prop._plotterName + " = " + prop._width.ToString() + "x" + prop._height.ToString() );
             }
 
+            txt.AppendLine("[PLOT] " + "add_revision_info_to_filename" + " = " + add_revision_info_to_filename);
+
             return txt.ToString();
         }
 
@@ -57,21 +66,29 @@ namespace tekla_print_export
                     string[] props = prop.Split('=');
                     if (props.Count() == 2)
                     {
-                        string[] size = props[1].Split('x');
-                        if (size.Count() == 2)
+                        if (props[0] == "add_revision_info_to_filename")
                         {
-                            double widthz = 0;
-                            Double.TryParse(size[0], out widthz);
-                            double heightz = 0;
-                            Double.TryParse(size[1], out heightz);
-
-                            if (widthz != 0 && heightz != 0)
-                            {
-                                PaperSize A = new PaperSize(props[0], widthz, heightz);
-                                _plotters.Add(A);
-                            }
-                            
+                            add_revision_info_to_filename = props[1];
                         }
+                        else
+                        {
+                            string[] size = props[1].Split('x');
+                            if (size.Count() == 2)
+                            {
+                                double widthz = 0;
+                                Double.TryParse(size[0], out widthz);
+                                double heightz = 0;
+                                Double.TryParse(size[1], out heightz);
+
+                                if (widthz != 0 && heightz != 0)
+                                {
+                                    PaperSize A = new PaperSize(props[0], widthz, heightz);
+                                    _plotters.Add(A);
+                                }
+
+                            }
+                        }
+
                     }
                 }
             }

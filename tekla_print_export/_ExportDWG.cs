@@ -56,13 +56,19 @@ namespace tekla_print_export
 
             TSD.DrawingObjectEnumerator ViewEnum = currentDrawing.GetSheet().GetViews();
 
-            foreach (TSD.View currentView in ViewEnum)
+            while (ViewEnum.MoveNext())
             {
-                if (isView2D(currentView))
+                if (ViewEnum.Current is TSD.View)
                 {
-                    double currentScale = currentView.Attributes.Scale;
-                    highestScale = Math.Max(currentScale, highestScale);
+                    TSD.View currentView = ViewEnum.Current as TSD.View;
+
+                    if (isView2D(currentView))
+                    {
+                        double currentScale = currentView.Attributes.Scale;
+                        highestScale = Math.Max(currentScale, highestScale);
+                    }
                 }
+
             }
 
             MainWindow._form.consoleOutput("EXPORT - Scale: " + highestScale.ToString(), "L2");
